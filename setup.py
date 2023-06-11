@@ -5,8 +5,9 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name="cultivate",
+    version="1.0.0",
     description="Become a productive member of your local community!",
-    url="https://github.com/DavyK/cultivate",
+    url="https://github.com/Edward-Knight/cultivate",
     author="Davy, Steve, Noelle, Ed, and Glen",
     packages=find_packages(),
     entry_points={
