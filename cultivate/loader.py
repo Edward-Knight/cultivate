@@ -48,7 +48,7 @@ def get_grass(width: int, height: int) -> pygame.Surface:
         rects=[(269, 333, 16, 16)])[0].convert()
 
     # create a blank surface to paint with grass
-    grass = pygame.Surface((width, height), pygame.SRCALPHA, 32).convert()
+    grass = pygame.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
 
     # paint grass tiles onto surface
     for i in range(0, width, 16):
