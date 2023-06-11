@@ -34,10 +34,9 @@ def get_image(path: str, has_alpha: bool = False) -> pygame.Surface:
     canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
     image = pygame.image.load(canonicalized_path)
     if has_alpha:
-        image.convert_alpha()
+        return image.convert_alpha()
     else:
-        image.convert()
-    return image
+        return image.convert()
 
 
 @lru_cache(None)
