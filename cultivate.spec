@@ -43,9 +43,3 @@ exe = EXE(
     entitlements_file=None,
     icon=['cultivate/assets/sprites/Church_rooftop.png'],
 )
-app = BUNDLE(
-    exe,
-    name='cultivate.app',
-    icon='cultivate/assets/sprites/Church_rooftop.png',
-    bundle_identifier='com.github.edward-knight.cultivate',
-)
