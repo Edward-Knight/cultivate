@@ -1,0 +1,42 @@
+name: package
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  pyinstaller:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set executable suffix to the EXE environment variable
+        if: ${{ runner.os == 'Windows' }}
+        run: echo "EXE=.exe" >> "$env:GITHUB_ENV"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3"
+      - name: Install dependencies
+        run: pip install . pyinstaller pillow
+      - name: Run pyinstaller
+        run: pyinstaller cultivate.spec
+      - name: Rename exe
+        run: mv "dist/cultivate${{ env.EXE }}" "dist/cultivate_${{ github.ref_name }}_${{ runner.os }}_${{ runner.arch }}${{ env.EXE }}"
+      - name: Upload dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: cultivate_pyinstaller_${{ runner.os }}_${{ runner.arch }}_${{ github.run_number }}
+          path: dist/*
+  release:
+    needs: pyinstaller
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v3
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: cultivate_pyinstaller_*/*
