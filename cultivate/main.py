@@ -6,10 +6,8 @@ import typing
 
 from itertools import chain
 
-# don't print pygame welcome
-with contextlib.redirect_stdout(None):
-    import pygame
-    from pygame.sprite import Group
+import pygame
+from pygame.sprite import Group
 
 from cultivate import settings
 from cultivate.loader import get_dirt, get_font, get_grass, get_music
